@@ -64,6 +64,12 @@ export default class InputsView extends React.Component {
       );
     }
 
+    if (this.props.inputs.monthly_income && this.props.inputs.house_cost
+        && this.props.inputs.mortgage_type && this.props.inputs.house_location) {
+      inputs.push(
+        <span key={'output'}>{`Output: ???`}</span>
+      );
+    }
     return inputs;
   };
 

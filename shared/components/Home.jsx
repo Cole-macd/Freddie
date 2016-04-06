@@ -22,12 +22,12 @@ class Home extends Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-sm-6 col-md-3" style={{backgroundColor: '#e3e3e3'}}>
-            <InputsView inputs={input_info.get('inputs')}
+          <div className="col-sm-6 col-md-6">
+            <InputsForm step={input_info.get('step')}
               {...bindActionCreators(InputsActions, dispatch)}/>
           </div>
-          <div className="col-sm-18 col-md-9">
-            <InputsForm step={input_info.get('step')}
+          <div className="col-sm-6 col-md-6" style={{backgroundColor: '#e3e3e3'}}>
+            <InputsView inputs={input_info.get('inputs')}
               {...bindActionCreators(InputsActions, dispatch)}/>
           </div>
         </div>
