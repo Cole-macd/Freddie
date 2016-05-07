@@ -1,20 +1,20 @@
 {
-  "name": "isomorphic-redux",
+  "name": "Freddie",
   "version": "1.0.0",
-  "repository": "https://github.com/bananaoomarang/isomorphic-redux",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=production NODE_PATH=$NODE_PATH:./shared node --harmony .",
     "dev": "NODE_PATH=$NODE_PATH:./shared node --harmony .",
-    "build": "webpack --progress --color -p --config webpack.prod.config.js"
+    "build": "webpack --progress --color -p --config webpack.prod.config.js",
+    "lint": "eslint shared client server.jsx index.js"
   },
-  "author": "Milo Mordaunt <milomord@gmail.com>",
-  "license": "MIT",
+  "author": "Cole MacDonald",
   "dependencies": {
     "axios": "^0.8.1",
     "babel": "^6.3.13",
     "babel-core": "^6.3.21",
+    "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.0",
     "babel-plugin-react-transform": "^2.0.0-beta1",
     "babel-plugin-transform-class-properties": "^6.3.13",
@@ -36,9 +36,9 @@
     "webpack": "^1.12.9"
   },
   "devDependencies": {
-    "babel-eslint": "^5.0.0-beta6",
-    "eslint": "^1.10.3",
-    "eslint-plugin-react": "^3.12.0",
+    "babel-eslint": "^6.0.4",
+    "eslint": "^2.9.0",
+    "eslint-plugin-react": "^5.0.1",
     "react-transform-hmr": "^1.0.1",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0"

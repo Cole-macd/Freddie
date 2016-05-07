@@ -15,7 +15,7 @@
   },
   "rules": {
     // Ignore Rules
-    "strict": 1,
+    "strict": 0,
     "no-underscore-dangle": 0,
     "no-mixed-requires": 0,
     "no-process-exit": 0,
@@ -23,6 +23,8 @@
     "curly": 0,
     "no-multi-spaces": 0,
     "no-alert": 0,
+    "camelcase": 0,
+    "new-cap": 0,
 
     // Warnings
     "no-debugger": 1,
@@ -32,7 +34,6 @@
     "no-native-reassign": 1,
     "no-fallthrough": 1,
     "handle-callback-err": 1,
-    "camelcase": 1,
 
     // Errors
     "no-undef": 2,
@@ -46,12 +47,12 @@
     "no-mixed-spaces-and-tabs": 2,
 
     // stylistic errors
-    "new-cap": 2,
     "no-spaced-func": 2,
     "semi-spacing": 2,
     "quotes": [2, "single"],
     "key-spacing": [2, {
-      "align": "value"
+      "afterColon": true,
+      "beforeColon": false
     }],
 
     // Plugin rules

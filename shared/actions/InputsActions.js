@@ -6,9 +6,10 @@ export function submitInput(input) {
   };
 }
 
-export function nextStep() {
+export function nextStep(next_active) {
   return {
     type: 'NEXT_STEP',
+    next_active: next_active,
     date: Date.now()
   };
 }
