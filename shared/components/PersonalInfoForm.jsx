@@ -33,11 +33,16 @@ export default class PersonalInfoForm extends React.Component {
         textAlign: 'center'
       };
 
+      let placeholder = 'Income';
+      if (this.props.inputs.monthly_income) {
+        placeholder = this.props.inputs.monthly_income;
+      }
+
       return (
         <div style={div_style}>
           <div>
             {'What is your monthly personal income? '}
-            <input type="text" placeholder={'income'} ref="personal-income" onKeyUp={this.handleKey}/>
+            <input type="text" placeholder={placeholder} ref="personal-income" onKeyUp={this.handleKey}/>
           </div>
           <div>
             <input type="submit" value="Submit!" onClick={this.handleSubmit} />

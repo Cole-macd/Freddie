@@ -8,6 +8,27 @@ export default class PersonalInfoForm extends React.Component {
     nextActive: PropTypes.any.isRequired
   };
 
+  getMortgageTypePlaceholder = () => {
+    if (this.props.inputs.mortgage_type) {
+      return this.props.inputs.mortgage_type;
+    }
+    return 'Mortgage Type';
+  };
+
+  getCostPlaceholder = () => {
+    if (this.props.inputs.house_cost) {
+      return this.props.inputs.house_cost;
+    }
+    return 'House Cost';
+  };
+
+  getLocationPlaceholder = () => {
+    if (this.props.inputs.house_location) {
+      return this.props.inputs.house_location;
+    }
+    return 'House Location';
+  };
+
   handleSubmit = () => {
     let house_cost = this.refs['house-cost'];
     let house_location = this.refs['house-location'];
@@ -45,22 +66,22 @@ export default class PersonalInfoForm extends React.Component {
         <div style={div_style}>
           <div className="col col-xs-12 col-sm-12 col-md-4 col-lg-4">
             {'What is the cost of the new house? '}
-            <input type="text" placeholder="Cost" ref="house-cost" onKeyUp={this.handleKey}/>
+            <input type="text" placeholder={this.getCostPlaceholder()} ref="house-cost" onKeyUp={this.handleKey}/>
           </div>
           <div className="col col-xs-12 col-sm-12 col-md-4 col-lg-4">
             {'Where is the house located? '}
-            <input type="text" placeholder="Location" ref="house-location" onKeyUp={this.handleKey}/>
+            <input type="text" placeholder={this.getLocationPlaceholder()} ref="house-location" onKeyUp={this.handleKey}/>
           </div>
           <div className="col col-xs-12 col-sm-12 col-md-4 col-lg-4">
             {'What is the type of mortgage? '}
-            <input type="text" placeholder="Mortgage Type" ref="mortgage-type" onKeyUp={this.handleKey}/>
+            <input type="text" placeholder={this.getMortgageTypePlaceholder()} ref="mortgage-type" onKeyUp={this.handleKey}/>
           </div>
           <div>
             <input type="submit" value="Submit!" onClick={this.handleSubmit} />
           </div>
         </div>
       );
-      
+
     } else {
       const div_style = {
         borderTop: '1px solid #ccc'
