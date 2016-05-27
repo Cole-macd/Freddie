@@ -1,11 +1,25 @@
 import React, { PropTypes } from 'react';
+import R from 'ramda';
+import * as PaymentCalculator from 'lib/payment-calculator'
 
 export default class PersonalInfoForm extends React.Component {
   static propTypes = {
-    nextStep: PropTypes.func.isRequired,
-    submitInput: PropTypes.func.isRequired,
     active: PropTypes.any.isRequired,
+    transactions: PropTypes.any.isRequired,
+    participants: PropTypes.any.isRequired
   };
+
+  getResults = () => {
+    return R.map((payment, index) => {
+      let amount = (Math.round(payment.amount*100)/100).toFixed(2);
+
+      return (
+        <div key={index}>
+          {`${payment.payer} owes ${payment.payee} ${amount} dollars`}
+        </div>
+      )
+    }, PaymentCalculator.getPayments(this.props.participants, this.props.transactions));
+  }
 
   render() {
     if (this.props.active == 'ResultInfo') {
@@ -18,11 +32,7 @@ export default class PersonalInfoForm extends React.Component {
       return (
         <div style={div_style}>
           <span>{'Results!'}<br/></span>
-          <span>{`Monthly Income: ${this.props.inputs.monthly_income}`}<br/></span>
-          <span>{`House Cost: ${this.props.inputs.house_cost}`}<br/></span>
-          <span>{`Mortgage Type: ${this.props.inputs.mortgage_type}`}<br/></span>
-          <span>{`House Location: ${this.props.inputs.house_location}`}<br/></span>
-          <span>{`Output: ???`}<br/></span>
+          {this.getResults()}
         </div>
       );
 

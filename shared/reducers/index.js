@@ -1,1 +1,1 @@
-export { default as input_info } from './InputsReducer';
+export { default as inputs } from './inputs-reducer';

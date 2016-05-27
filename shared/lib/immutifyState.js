@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import assign     from 'object-assign';
+import assign from 'object-assign';
 
 Object.assign = Object.assign || assign;
 
