@@ -52,7 +52,7 @@ export default class TransactionsForm extends React.Component {
     
   };
 
-  deleteTransaction = (e) => {
+  handleDeleteTransaction = (e) => {
     this.props.deleteTransaction(e.target.dataset.id);
   };
 
@@ -80,7 +80,7 @@ export default class TransactionsForm extends React.Component {
       return (
         <div key={transaction.id}>
           {`${transaction.buyer} paid ${transaction.cost} for ${transaction.description}  `}
-          <input type="submit" data-id={transaction.id} value="Delete" onClick={this.handleDelete}/>
+          <input type="submit" data-id={transaction.id} value="Delete?" onClick={this.handleDeleteTransaction}/>
         </div>
       )
     }, this.props.transactions);

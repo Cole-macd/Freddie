@@ -23,16 +23,16 @@ export default function inputReducer(state = default_state, action) {
 
     case 'DELETE_PARTICIPANT':
       return state.set('participants', R.filter(participant => {
-        return !R.equals(id, action.id);
+        return !R.equals(participant.id, action.id);
       }, state.get('participants')));
 
     case 'SUBMIT_TRANSACTION':
       return state.set('transactions', state.get('transactions').push(action.transaction));
 
     case 'DELETE_TRANSACTION':
-      return state.set('transations', R.filter(transaction => {
-        return !R.equals(id, action.id);
-      }, state.get('transations')));
+      return state.set('transactions', R.filter(transaction => {
+        return !R.equals(transaction.id, action.id);
+      }, state.get('transactions')));
 
     case 'NEXT_STEP':
       return state.set('active', action.next_active);
