@@ -20,7 +20,7 @@ class Home extends Component {
       paddingRight: '50px',
       paddingLeft: '50px'
     }
-    console.log('render home');
+
     return (
       <div className="container-fluid" style={div_style}>
         <StartBox active={inputs.get('active')} nextActive={'ParticipantsForm'}

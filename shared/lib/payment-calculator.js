@@ -4,20 +4,24 @@ export function getPayments(participants, transactions) {
   let credits = {};
   R.forEach(participant => {
     credits[participant.id] = {
-      name: participant.name,
-      balance: 0
+      balance: 0,
+      name: participant.name
     }
   }, participants);
 
   R.forEach(transaction => {
     R.forEach(participant_id => {
-      if (participant_id == transaction.buyer_id) {
-        credits[participant_id].balance += transaction.cost - (transaction.cost/participants.size);
-      } else {
-        credits[participant_id].balance -= transaction.cost/participants.size;
-      }
-    }, R.keys(credits));
+      credits[participant_id].balance -= transaction.cost / transaction.participants.length;
+    }, transaction.participants);
+
+    credits[transaction.buyer_id].balance += transaction.cost;
   }, transactions);
+
+  R.forEach(participant_id => {
+    if (credits[participant_id].balance == 0) {
+      delete credits[participant_id];
+    }
+  }, R.keys(credits))
 
   const sorted_keys = Object.keys(credits).sort((a,b) => {
     return credits[a].balance - credits[b].balance;

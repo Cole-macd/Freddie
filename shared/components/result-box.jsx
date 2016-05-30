@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import R from 'ramda';
 import * as PaymentCalculator from 'lib/payment-calculator'
 
-export default class PersonalInfoForm extends React.Component {
+export default class ResultBox extends React.Component {
   static propTypes = {
     active: PropTypes.any.isRequired,
     transactions: PropTypes.any.isRequired,
@@ -14,7 +14,7 @@ export default class PersonalInfoForm extends React.Component {
       let amount = (Math.round(payment.amount*100)/100).toFixed(2);
 
       return (
-        <div key={index}>
+        <div key={payment.payer}>
           {`${payment.payer} owes ${payment.payee} ${amount} dollars`}
         </div>
       )

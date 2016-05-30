@@ -19,13 +19,24 @@ export default class TransactionsForm extends React.Component {
   };
 
   handleAdd = () => {
-    // throw an error here
+    // throw an error here if cost isnt a number
+    const checked = R.filter(checkbox => {
+      return checkbox.checked
+    }, document.getElementsByClassName('checkbox'));
     const cost = Number(this.refs['transaction-cost'].value);
-    if (R.is(Number, cost) && cost > 0) {
+
+    if (R.is(Number, cost) && cost > 0 && checked.length > 0) {
       let transaction = {};
       transaction.cost = cost;
       transaction.description = this.refs['transaction-description'].value;
       transaction.id = shortid.generate();
+
+      let participants = [];
+
+      for (let i = 0; i < checked.length; i++) {
+        participants.push(checked[i].value);
+      }
+      transaction.participants = participants;
 
       const participant = document.getElementById('transaction-participant');
       transaction.buyer = participant.options[participant.selectedIndex].text;
@@ -63,14 +74,36 @@ export default class TransactionsForm extends React.Component {
     }
     return (
       <div id="participant-dropdown">
+        {'Select Payer:'}<br/>
         <select className="form-control" style={select_style} id="transaction-participant">
-          <option value={null}>Select Payer</option>
           {R.map(participant => {
             return (
               <option key={participant.id} value={participant.id}>{participant.name}</option>
             )
           }, this.props.participants)}
         </select>
+      </div>
+    );
+  };
+
+  getParticipantsRadioButtons = () => {
+    const div_style = {
+      marginTop: '5px'
+    }
+    const checkbox_style = {
+      display: 'inline',
+      marginRight:'2px'
+    }
+    return (
+      <div id="participants-radio-buttons" style={div_style}>
+        {'Who was this for?'}<br/>
+        {R.map(participant => {
+          return (
+            <div className="checkbox-group" id="checkbox" key={participant.id}>
+              <label><input type="checkbox" className="checkbox" style={checkbox_style} value={participant.id} defaultChecked="true"/>{participant.name}</label>
+            </div>
+          )
+        }, this.props.participants)}
       </div>
     );
   };
@@ -93,7 +126,7 @@ export default class TransactionsForm extends React.Component {
         textAlign: 'center'
       };
       const description_style = {
-        width: '200px'
+        width: '300px'
       }
       const next_style = {
         marginTop: '30px'
@@ -109,6 +142,7 @@ export default class TransactionsForm extends React.Component {
             {this.getParticipantsDropdown()}
             <input type="text" style={cost_style} placeholder={'Cost'} ref="transaction-cost" onKeyUp={this.handleKey}/>
             <input type="text" style={description_style} placeholder={'Description'} ref="transaction-description" onKeyUp={this.handleKey}/>
+            {this.getParticipantsRadioButtons()}
             <input type="submit" value="Add Transaction" onClick={this.handleAdd} />
           </div>
           <div>
