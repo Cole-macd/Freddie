@@ -25,7 +25,7 @@ export default class ResultBox extends React.Component {
 
       return (
         <div key={payment.payer}>
-          {`${payment.payer} owes ${payment.payee} ${amount} dollars`}
+          {`${payment.payer} owes ${payment.payee} ${amount} dollars ${this.props.payment_currency}`}
         </div>
       )
     }, this.props.payments);

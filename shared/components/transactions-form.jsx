@@ -113,12 +113,22 @@ export default class TransactionsForm extends React.Component {
     );
   };
 
+  getNames = participant_ids => {
+    let names_string = '';
+    R.forEach(participant_id => {
+      names_string += ' ' + R.find(R.propEq('id', participant_id))(this.props.participants).name;
+    }, participant_ids);
+
+    return names_string;
+  };
+
   getTransactions = () => {
     return R.map((transaction, index) => {
       return (
         <div key={transaction.id}>
-          {`${transaction.buyer} paid ${transaction.cost} for ${transaction.description}  `}
-          <input type="submit" data-id={transaction.id} value="Delete?" onClick={this.handleDeleteTransaction}/>
+          {`${transaction.buyer} paid ${transaction.cost} ${transaction.currency} for ${transaction.description}. `}
+          {`Includes: ${this.getNames(transaction.participants)}.  `}
+          <input type="submit" data-id={transaction.id} value="Delete" onClick={this.handleDeleteTransaction}/>
         </div>
       )
     }, this.props.transactions);
