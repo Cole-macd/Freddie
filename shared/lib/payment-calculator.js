@@ -23,12 +23,12 @@ export function getPayments(participants, transactions, return_currency, callbac
 
       // convert all transactions to USD 
       R.forEach(transaction => {
-        transaction.cost *= json_data.rates[return_currency] / json_data.rates[transaction.currency];
+        const transaction_cost = transaction.cost * json_data.rates[return_currency] / json_data.rates[transaction.currency];
         R.forEach(participant_id => {
-          credits[participant_id].balance -= (transaction.cost / transaction.participants.length);
+          credits[participant_id].balance -= (transaction_cost / transaction.participants.length);
         }, transaction.participants);
 
-        credits[transaction.buyer_id].balance += transaction.cost;
+        credits[transaction.buyer_id].balance += transaction_cost;
       }, transactions);
 
       R.forEach(participant_id => {
