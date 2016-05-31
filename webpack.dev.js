@@ -48,7 +48,7 @@ export default function(app) {
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()
-    ],
+    ]
   });
 
   const compiler = webpack(config);

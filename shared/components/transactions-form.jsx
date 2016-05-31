@@ -11,10 +11,15 @@ export default class TransactionsForm extends React.Component {
     transactions: PropTypes.any.isRequired,
     // editTransaction: PropTypes.func.isRequired,
     deleteTransaction: PropTypes.func.isRequired,
-    participants: PropTypes.any.isRequired
+    participants: PropTypes.any.isRequired,
+    setPaymentCurrency: PropTypes.func.isRequired,
+    clearPayments: PropTypes.func.isRequired
   };
 
   handleNext = () => {
+    const currency = document.getElementById('result-currency');
+    this.props.setPaymentCurrency(currency.options[currency.selectedIndex].value);
+
     this.props.nextStep(this.props.nextActive);
   };
 
@@ -42,6 +47,10 @@ export default class TransactionsForm extends React.Component {
       transaction.buyer = participant.options[participant.selectedIndex].text;
       transaction.buyer_id = participant.options[participant.selectedIndex].value;
 
+      const currency = document.getElementById('transaction-currency');
+      transaction.currency = currency.options[currency.selectedIndex].value;
+
+      this.props.clearPayments();
       this.props.submitTransaction(transaction);
     }
     this.refs['transaction-description'].value = '';
@@ -57,10 +66,6 @@ export default class TransactionsForm extends React.Component {
 
   setToActive = () => {
     this.props.nextStep('ParticipantsForm');
-  };
-
-  handleEditTransaction =(e) => {
-    
   };
 
   handleDeleteTransaction = (e) => {
@@ -134,18 +139,33 @@ export default class TransactionsForm extends React.Component {
       const cost_style = {
         width: '100px'
       }
+      const select_style = {
+        display: 'inline',
+        width: '60px',
+        height: '25px'
+      }
 
       return (
         <div style={div_style}>
           {this.getTransactions()}
           <div>
             {this.getParticipantsDropdown()}
+            <select className="form-control" style={select_style} id="transaction-currency">
+              <option key={'CAD'} value={'CAD'}>{'CAD'}</option>
+              <option key={'USD'} value={'USD'}>{'USD'}</option>
+              <option key={'EUR'} value={'EUR'}>{'EUR'}</option>
+            </select>
             <input type="text" style={cost_style} placeholder={'Cost'} ref="transaction-cost" onKeyUp={this.handleKey}/>
             <input type="text" style={description_style} placeholder={'Description'} ref="transaction-description" onKeyUp={this.handleKey}/>
             {this.getParticipantsRadioButtons()}
             <input type="submit" value="Add Transaction" onClick={this.handleAdd} />
           </div>
           <div>
+            <select className="form-control" style={select_style} id="result-currency">
+              <option key={'CAD'} value={'CAD'}>{'CAD'}</option>
+              <option key={'USD'} value={'USD'}>{'USD'}</option>
+              <option key={'EUR'} value={'EUR'}>{'EUR'}</option>
+            </select>
             <input type="submit" style={next_style} value="Get Results!" onClick={this.handleNext} />
           </div>
         </div>

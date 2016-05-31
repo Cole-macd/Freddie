@@ -28,7 +28,7 @@ export function submitTransaction(transaction) {
     type: 'SUBMIT_TRANSACTION',
     transaction: transaction,
     date: Date.now()
-  }
+  };
 }
 
 export function deleteTransaction(id) {
@@ -36,6 +36,29 @@ export function deleteTransaction(id) {
     type: 'DELETE_TRANSACTION',
     id: id,
     date: Date.now()
+  };
+}
+
+export function setPayments(payments) {
+  return {
+   type: 'SET_PAYMENTS',
+   payments: payments,
+   date: Date.now()
+  };
+}
+
+export function clearPayments() {
+  return {
+    type:'CLEAR_PAYMENTS',
+    date: Date.now()
+  }
+}
+
+export function setPaymentCurrency(payment_currency) {
+  return {
+   type: 'SET_PAYMENT_CURRENCY',
+   payment_currency: payment_currency,
+   date: Date.now()
   };
 }
 

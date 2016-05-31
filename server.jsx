@@ -13,8 +13,22 @@ import { createStore,
          applyMiddleware }       from 'redux';
 import path                      from 'path';
 
-const app = express();
+// const allowCrossDomain = (req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', 'localhost:3000');
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, x-busbud-token, Cache-Control, x-request-id');
+//   res.header('Access-Control-Allow-Credentials', true);
+//   // intercept OPTIONS method
+//   if (req.method === 'OPTIONS') {
+//     res.header('Access-Control-Max-Age', TEN_MINUTES_IN_SECONDS);
+//     res.sendStatus(200);
+//   } else {
+//     next();
+//   }
+// }; 
 
+const app = express();
+// app.use(allowCrossDomain);
 if (process.env.NODE_ENV !== 'production') {
   require('./webpack.dev').default(app);
 }

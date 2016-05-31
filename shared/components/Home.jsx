@@ -35,7 +35,7 @@ class Home extends Component {
           {...bindActionCreators(InputsActions, dispatch)}/>
 
         <ResultBox participants={inputs.get('participants')} transactions={inputs.get('transactions')} 
-          active={inputs.get('active')}
+          active={inputs.get('active')} payments={inputs.get('payments')} payment_currency={inputs.get('payment_currency')}
           {...bindActionCreators(InputsActions, dispatch)}/>
       </div>
     );
