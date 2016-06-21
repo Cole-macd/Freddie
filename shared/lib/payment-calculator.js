@@ -37,20 +37,23 @@ export function getPayments(participants, transactions, return_currency, callbac
         }
       }, R.keys(credits))
 
-      const sorted_keys = Object.keys(credits).sort((a,b) => {
-        return credits[a].balance - credits[b].balance;
-      });
+      let sorted_keys;
 
       let payments = [];
 
-      for (let i = 0; i < sorted_keys.length - 1; i++) {
+      for (let i = 0; i < Object.keys(credits).length - 1; i++) {
+        sorted_keys = Object.keys(credits).sort((a,b) => {
+          return credits[a].balance - credits[b].balance;
+        });
+
         payments[i] = {
-          payer: credits[sorted_keys[i]].name,
-          payee: credits[sorted_keys[i + 1]].name,
-          amount: credits[sorted_keys[i]].balance * -1
+          payer: credits[sorted_keys[0]].name,
+          payee: credits[sorted_keys[sorted_keys.length - 1]].name,
+          amount: credits[sorted_keys[0]].balance * -1
         }
 
-        credits[sorted_keys[i + 1]].balance -= payments[i].amount;
+        credits[sorted_keys[sorted_keys.length - 1]].balance -= payments[i].amount;
+        credits[sorted_keys[0]].balance += payments[i].amount;
       }
 
       callback(payments);
