@@ -65,7 +65,7 @@ export default class TransactionsForm extends React.Component {
   };
 
   setToActive = () => {
-    this.props.nextStep('ParticipantsForm');
+    this.props.nextStep('TransactionsForm');
   };
 
   handleDeleteTransaction = (e) => {
