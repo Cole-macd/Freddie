@@ -1,20 +1,13 @@
 import React, { PropTypes } from 'react';
 import R from 'ramda';
-import * as PaymentCalculator from 'lib/payment-calculator';
 
 export default class ResultBox extends React.Component {
   static propTypes = {
     active: PropTypes.any.isRequired,
     transactions: PropTypes.any.isRequired,
     participants: PropTypes.any.isRequired,
-    setPayments: PropTypes.func.isRequired,
-    payment_currency: PropTypes.any.isRequired
-  };
-
-  getResults = () => {
-    PaymentCalculator.getPayments(this.props.participants, this.props.transactions, this.props.payment_currency, payments => {
-      this.props.setPayments(payments);
-    });
+    payment_currency: PropTypes.any.isRequired,
+    payments: PropTypes.any.isRequired
   };
 
   renderResults = () => {
@@ -33,7 +26,6 @@ export default class ResultBox extends React.Component {
 
   render() {
     if (this.props.active == 'ResultInfo') {
-      if (this.props.payments.size == 0) this.getResults();
 
       const div_style = {
         borderTop: '1px solid #ccc',

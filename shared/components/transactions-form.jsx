@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import shortid from 'shortid';
 import R from 'ramda';
+import * as PaymentCalculator from 'lib/payment-calculator';
 
 export default class TransactionsForm extends React.Component {
   static propTypes = {
@@ -9,18 +10,27 @@ export default class TransactionsForm extends React.Component {
     active: PropTypes.any.isRequired,
     nextActive: PropTypes.any.isRequired,
     transactions: PropTypes.any.isRequired,
-    // editTransaction: PropTypes.func.isRequired,
+    setPayments: PropTypes.func.isRequired,
     deleteTransaction: PropTypes.func.isRequired,
     participants: PropTypes.any.isRequired,
     setPaymentCurrency: PropTypes.func.isRequired,
     clearPayments: PropTypes.func.isRequired
   };
 
+  setPayments = () => {
+    PaymentCalculator.getPayments(this.props.participants, this.props.transactions, this.props.payment_currency, payments => {
+      this.props.setPayments(payments);
+    });
+  };
+
   handleNext = () => {
     const currency = document.getElementById('result-currency');
     this.props.setPaymentCurrency(currency.options[currency.selectedIndex].value);
 
-    this.props.nextStep(this.props.nextActive);
+    PaymentCalculator.getPayments(this.props.participants, this.props.transactions, currency.options[currency.selectedIndex].value, payments => {
+      this.props.setPayments(payments);
+      this.props.nextStep(this.props.nextActive);
+    });
   };
 
   handleAdd = () => {
