@@ -15,12 +15,13 @@ export default class ResultBox extends React.Component {
 
     return R.map((payment) => {
       let amount = (Math.round(payment.amount * 100) / 100).toFixed(2);
-
-      return (
-        <div key={payment.payer}>
-          {`${payment.payer} owes ${payment.payee} ${amount} dollars ${this.props.payment_currency}`}
-        </div>
-      )
+      if (amount != 0) {
+        return (
+          <div key={payment.payer}>
+            {`${payment.payer} owes ${payment.payee} ${amount} dollars ${this.props.payment_currency}`}
+          </div>
+        )
+      }
     }, this.props.payments);
   };
 
